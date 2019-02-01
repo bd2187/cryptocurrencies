@@ -1,8 +1,4 @@
 import React from "react";
 import { render } from "react-dom";
-
-const App = () => {
-    return <h1>cryptocurrencies</h1>;
-};
-
+import App from "./components/App";
 render(<App />, document.getElementById("root"));
