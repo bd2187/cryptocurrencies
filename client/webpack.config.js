@@ -10,6 +10,12 @@ module.exports = {
         filename: "bundle.js"
     },
 
+    resolve: {
+        alias: {
+            API: path.resolve(__dirname, "src/api")
+        }
+    },
+
     module: {
         rules: [
             { test: /\.js$/, loader: "babel-loader", exclude: /node_modules/ },
