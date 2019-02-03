@@ -8,12 +8,30 @@ const CurrenciesListItem = ({ currency, updateCurrentlyViewedCurrency }) => {
             }}
         >
             <p>{currency.Name}</p>
+            <img
+                style={{ width: "50px" }}
+                src={`http://cryptocompare.com/${currency.ImageUrl}`}
+            />
         </li>
+    );
+};
+
+const CurrentCurrencyViewed = ({ currentlyViewedCurrency }) => {
+    const { currencyInfo, historicalData } = currentlyViewedCurrency;
+    return (
+        <div>
+            <p>{currencyInfo.Name}</p>
+            <img
+                style={{ width: "50px" }}
+                src={`http://cryptocompare.com/${currencyInfo.ImageUrl}`}
+            />
+        </div>
     );
 };
 
 const Currencies = ({
     fetchingCurrencies,
+    currentlyViewedCurrency,
     currencies,
     updateCurrentlyViewedCurrency
 }) => {
@@ -35,6 +53,10 @@ const Currencies = ({
                         );
                     })}
                 </ul>
+                <p>current:</p>
+                <CurrentCurrencyViewed
+                    currentlyViewedCurrency={currentlyViewedCurrency}
+                />
             </Fragment>
         );
     }
