@@ -1,5 +1,22 @@
 import React, { Fragment } from "react";
-const Currencies = ({ fetchingCurrencies, currencies }) => {
+
+const CurrenciesListItem = ({ currency, updateCurrentlyViewedCurrency }) => {
+    return (
+        <li
+            onClick={() => {
+                updateCurrentlyViewedCurrency(currency);
+            }}
+        >
+            <p>{currency.Name}</p>
+        </li>
+    );
+};
+
+const Currencies = ({
+    fetchingCurrencies,
+    currencies,
+    updateCurrentlyViewedCurrency
+}) => {
     if (fetchingCurrencies) {
         return <Fragment>Loading</Fragment>;
     } else {
@@ -8,9 +25,13 @@ const Currencies = ({ fetchingCurrencies, currencies }) => {
                 <ul>
                     {currencies.map(currency => {
                         return (
-                            <li key={currency.CoinInfo.Id}>
-                                <p>{currency.CoinInfo.Name}</p>
-                            </li>
+                            <CurrenciesListItem
+                                key={currency.Id}
+                                currency={currency}
+                                updateCurrentlyViewedCurrency={
+                                    updateCurrentlyViewedCurrency
+                                }
+                            />
                         );
                     })}
                 </ul>
