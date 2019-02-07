@@ -5,7 +5,8 @@ const SearchResults = ({ results }) => {
         <Fragment>
             <ul>
                 {results.map(function(result) {
-                    const link = `search/${result.CoinName}`;
+                    const link = `/search/${result.Symbol}`;
+
                     return (
                         <li key={result.FullName}>
                             <a href={link}>{result.FullName}</a>
