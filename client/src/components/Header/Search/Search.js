@@ -1,4 +1,21 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
+
+const SearchResults = ({ results }) => {
+    return (
+        <Fragment>
+            <ul>
+                {results.map(function(result) {
+                    const link = `search/${result.CoinName}`;
+                    return (
+                        <li key={result.FullName}>
+                            <a href={link}>{result.FullName}</a>
+                        </li>
+                    );
+                })}
+            </ul>
+        </Fragment>
+    );
+};
 
 class Search extends Component {
     constructor(props) {
@@ -44,11 +61,7 @@ class Search extends Component {
                     value={this.state.value}
                     onChange={this.onChange}
                 />
-                <ul>
-                    {searchResults.map(function(result) {
-                        return <li key={result.FullName}>{result.FullName}</li>;
-                    })}
-                </ul>
+                <SearchResults results={searchResults} />
             </div>
         );
     }
