@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Currencies from "./Currencies";
-import { topTenEndpoint, currencyDataEndpoint } from "API/endpoints";
+import { topTenEndpoint, currencyHistoryEndpoint } from "API/endpoints";
 
 class CurrenciesContainer extends Component {
     constructor(props) {
@@ -98,7 +98,7 @@ class CurrenciesContainer extends Component {
         (async () => {
             try {
                 let historicalCurrencyResponse = await fetch(
-                    currencyDataEndpoint(currency.Name, this.state.timeline)
+                    currencyHistoryEndpoint(currency.Name, this.state.timeline)
                 );
 
                 let parsedHistoricalData = await historicalCurrencyResponse.json();
@@ -142,7 +142,7 @@ class CurrenciesContainer extends Component {
         (async () => {
             try {
                 let historicalCurrencyResponse = await fetch(
-                    currencyDataEndpoint(
+                    currencyHistoryEndpoint(
                         this.state.currentlyViewedCurrency.currencyInfo,
                         timeline
                     )
