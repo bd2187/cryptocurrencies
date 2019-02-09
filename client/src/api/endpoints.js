@@ -19,3 +19,6 @@ export const currencyHistoryEndpoint = (currency = "", timeline = "month") => {
 export const currencyTradeInfoEndpoint = (currency = "") => {
     return `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${currency}&tsyms=USD`;
 };
+
+export const allCoinsEndpoint =
+    "https://min-api.cryptocompare.com/data/all/coinlist";
