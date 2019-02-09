@@ -21,7 +21,10 @@ class CurrencyProfileContainer extends Component {
                 let parsedCurrencyData = await currencyData.json();
 
                 this.setState({
-                    currencyData: parsedCurrencyData.DISPLAY,
+                    currencyData:
+                        parsedCurrencyData.DISPLAY[
+                            Object.keys(parsedCurrencyData.DISPLAY)
+                        ],
                     fetchingCurrencyData: false,
                     errorFetchingData: false
                 });
@@ -37,7 +40,18 @@ class CurrencyProfileContainer extends Component {
     }
 
     render() {
-        return <CurrencyProfile />;
+        const {
+            currencyData,
+            fetchingCurrencyData,
+            errorFetchingData
+        } = this.state;
+        return (
+            <CurrencyProfile
+                currencyData={currencyData}
+                fetchingCurrencyData={fetchingCurrencyData}
+                errorFetchingData={errorFetchingData}
+            />
+        );
     }
 }
 
