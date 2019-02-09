@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import CurrentlyViewedCurrency from "./CurrentlyViewedCurrency";
 
 const CurrenciesListItem = ({ currency, updateCurrentlyViewedCurrency }) => {
     return (
@@ -13,19 +14,6 @@ const CurrenciesListItem = ({ currency, updateCurrentlyViewedCurrency }) => {
                 src={`http://cryptocompare.com/${currency.ImageUrl}`}
             />
         </li>
-    );
-};
-
-const CurrentCurrencyViewed = ({ currentlyViewedCurrency }) => {
-    const { currencyInfo, historicalData } = currentlyViewedCurrency;
-    return (
-        <div>
-            <p>{currencyInfo.Name}</p>
-            <img
-                style={{ width: "50px" }}
-                src={`http://cryptocompare.com/${currencyInfo.ImageUrl}`}
-            />
-        </div>
     );
 };
 
@@ -54,7 +42,7 @@ const Currencies = ({
                     })}
                 </ul>
                 <p>current:</p>
-                <CurrentCurrencyViewed
+                <CurrentlyViewedCurrency
                     currentlyViewedCurrency={currentlyViewedCurrency}
                 />
             </Fragment>
