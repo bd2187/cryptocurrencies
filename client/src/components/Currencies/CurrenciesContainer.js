@@ -1,36 +1,29 @@
 import React, { Component } from "react";
 import Currencies from "./Currencies";
-import { topTenEndpoint, currencyHistoryEndpoint } from "API/endpoints";
+import { topTenEndpoint } from "API/endpoints";
 
 class CurrenciesContainer extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            currentlyViewedCurrency: {
-                currencyInfo: {},
-                historicalData: []
-            },
-            timeline: "month",
             currencies: [],
+            currentlyViewedCurrency: {},
 
-            fetchingCurrencies: true,
-            fetchingCurrencyData: true,
+            fetchingCurrencies: false,
+            fetchingCurrencyData: false,
             errorFetchingCurrencies: false
         };
 
         this.updateCurrentlyViewedCurrency = this.updateCurrentlyViewedCurrency.bind(
             this
         );
-
-        this.updateTimeLine = this.updateTimeLine.bind(this);
     }
 
     /**
      * If the currencies array was provided via props,
      * update state with the given currencies.
-     * Otherwise, fetch the top 10 currencies is
-     * provided via props.
+     * Otherwise, fetch the top 10 currencies.
      *
      *  @param
      *  @return
@@ -39,11 +32,10 @@ class CurrenciesContainer extends Component {
         this.setState({ fetchingCurrencies: true });
         if (this.props.currencies) {
             this.setState({
+                currentlyViewedCurrency: this.props.currencies[0],
                 currencies: this.props.currencies,
                 fetchingCurrencies: false
             });
-
-            this.updateCurrentlyViewedCurrency(this.state.currencies[0].Name);
         } else {
             (async () => {
                 try {
@@ -57,11 +49,10 @@ class CurrenciesContainer extends Component {
                     }
 
                     this.setState({
+                        currentlyViewedCurrency: coinInfoArr[0],
                         currencies: coinInfoArr,
                         fetchingCurrencies: false
                     });
-
-                    this.updateCurrentlyViewedCurrency(coinInfoArr[0]);
                 } catch (err) {
                     console.error(err);
 
@@ -77,98 +68,12 @@ class CurrenciesContainer extends Component {
     /**
      * Updates the currently viewed currency when user clicks on
      * specific currency from the list.
-     * Fetches historical data for the currency
      *
      * @param Object currency
      * @return
      */
     updateCurrentlyViewedCurrency(currency) {
-        /*
-            If current currency is the same as the one that user clicked,
-            immediately return
-        */
-        if (
-            currency.Name ===
-            this.state.currentlyViewedCurrency.currencyInfo.Name
-        )
-            return;
-
-        this.setState({ fetchingCurrencyData: true });
-
-        (async () => {
-            try {
-                let historicalCurrencyResponse = await fetch(
-                    currencyHistoryEndpoint(currency.Name, this.state.timeline)
-                );
-
-                let parsedHistoricalData = await historicalCurrencyResponse.json();
-
-                this.setState({
-                    currentlyViewedCurrency: {
-                        currencyInfo: currency,
-                        historicalData: parsedHistoricalData.Data
-                    },
-                    fetchingCurrencyData: false
-                });
-            } catch (err) {
-                console.error(err);
-
-                this.setState({
-                    fetchingCurrencyData: false,
-                    fetchingCurrencyData: false,
-                    errorFetchingCurrencies: true
-                });
-            }
-        })();
-    }
-
-    /**
-     * Updates the currently viewed currency when user clicks on
-     * specific currency from the list.
-     * Fetches historical data for the currency
-     *
-     * @param Object currency
-     * @return
-     */
-    updateTimeLine(timeline) {
-        /*
-            If current timeline is the same as the one that user clicked,
-            immediately return
-        */
-        if (timeline === this.state.timeline) return;
-
-        this.setState({ fetchingCurrencyData: true });
-
-        (async () => {
-            try {
-                let historicalCurrencyResponse = await fetch(
-                    currencyHistoryEndpoint(
-                        this.state.currentlyViewedCurrency.currencyInfo,
-                        timeline
-                    )
-                );
-
-                let parsedHistoricalData = await historicalCurrencyResponse.json();
-
-                this.setState(state => {
-                    return {
-                        currentlyViewedCurrency: {
-                            historicalData: parsedHistoricalData.Data
-                        },
-                        timeline,
-                        fetchingCurrencyData: false
-                    };
-                });
-            } catch (err) {
-                console.error(err);
-
-                this.setState({
-                    fetchingCurrencyData: false,
-                    fetchingCurrencyData: false,
-                    errorFetchingCurrencies: true
-                });
-            }
-        })();
+        this.setState({ currentlyViewedCurrency: currency });
     }
 
     render() {
@@ -186,7 +91,6 @@ class CurrenciesContainer extends Component {
                 updateCurrentlyViewedCurrency={
                     this.updateCurrentlyViewedCurrency
                 }
-                updateTimeLine={this.updateTimeLine}
             />
         );
     }
