@@ -5,7 +5,6 @@ class SearchContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            allCoins: [],
             query: "",
             searchResults: []
         };
@@ -24,7 +23,7 @@ class SearchContainer extends Component {
             return;
         }
 
-        const allCoins = this.state.allCoins.slice();
+        const allCoins = this.props.allCoins.slice();
         const filteredCoins = [];
 
         // filter through allCoins and display them in results
@@ -55,25 +54,6 @@ class SearchContainer extends Component {
         const topEightResults = sortedFilteredCoins.slice(0, 8);
 
         this.setState({ query: userValue, searchResults: topEightResults });
-    }
-
-    componentDidMount() {
-        (async () => {
-            try {
-                const allCoinsResponse = await fetch(
-                    "https://min-api.cryptocompare.com/data/all/coinlist"
-                );
-                const parsedResponse = await allCoinsResponse.json();
-
-                const responseKeys = Object.keys(parsedResponse.Data);
-                const allCoins = [];
-                for (let i = 0; i < responseKeys.length; i++) {
-                    allCoins.push(parsedResponse.Data[responseKeys[i]]);
-                }
-
-                this.setState({ allCoins });
-            } catch (err) {}
-        })();
     }
 
     render() {
