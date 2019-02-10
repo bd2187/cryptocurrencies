@@ -6,15 +6,11 @@ const CurrencyHistory = ({
     fetchingCurrencyData,
     fetchingCurrencyError
 }) => {
-    return (
-        <div>
-            {/* <p>{currencyInfo.Name}</p>
-            <img
-                style={{ width: "50px" }}
-                src={`http://cryptocompare.com/${currencyInfo.ImageUrl}`}
-            /> */}
-        </div>
-    );
+    if (historicalCurrencyData.length > 0) {
+        return <div>{historicalCurrencyData[0].high}</div>;
+    } else {
+        return null;
+    }
 };
 
 export default CurrencyHistory;
