@@ -57,21 +57,26 @@ class App extends Component {
     }
     render() {
         return (
-            <Fragment>
-                <Header allCoins={this.state.allCoins} />
-                <Router>
+            <Router>
+                <Fragment>
+                    <Header allCoins={this.state.allCoins} />
                     <Switch>
                         <Route exact path="/" component={Dashboard} />
                         <Route exact path="/profile" component={Profile} />
                         <Route
                             exact
                             path="/search/:currency"
-                            component={CurrencyProfileContainer}
+                            render={props => (
+                                <CurrencyProfileContainer
+                                    {...props}
+                                    allCoins={this.state.allCoins}
+                                />
+                            )}
                         />
                         <Route component={PageNotFound} />
                     </Switch>
-                </Router>
-            </Fragment>
+                </Fragment>
+            </Router>
         );
     }
 }
