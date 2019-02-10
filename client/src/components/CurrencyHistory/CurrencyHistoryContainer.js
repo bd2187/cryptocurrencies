@@ -39,7 +39,7 @@ class CurrencyHistoryContainer extends Component {
      * @param
      * @return
      */
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
         if (
             this.props.currentlyViewedCurrency.Name ===
             this.state.currencyInfo.Name
