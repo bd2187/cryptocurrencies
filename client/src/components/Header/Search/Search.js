@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Link } from "react-router-dom";
 
 const SearchResults = ({ results }) => {
     return (
@@ -9,7 +10,7 @@ const SearchResults = ({ results }) => {
 
                     return (
                         <li key={result.FullName}>
-                            <a href={link}>{result.FullName}</a>
+                            <Link to={link}>{result.FullName}</Link>
                         </li>
                     );
                 })}
