@@ -45,7 +45,7 @@ class CurrenciesContainer extends Component {
                     let coinInfoArr = [];
 
                     for (let i = 0; i < topTenParsedResponse.Data.length; i++) {
-                        coinInfoArr.push(topTenParsedResponse.Data[i].CoinInfo);
+                        coinInfoArr.push(topTenParsedResponse.Data[i]);
                     }
 
                     this.setState({
