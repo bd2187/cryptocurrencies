@@ -13,7 +13,8 @@ module.exports = {
 
     resolve: {
         alias: {
-            API: path.resolve(__dirname, "src/api")
+            API: path.resolve(__dirname, "src/api"),
+            STYLES: path.resolve(__dirname, "src/public/styles")
         }
     },
 
@@ -31,6 +32,11 @@ module.exports = {
                     modules: true,
                     localIdentName: "[name]__[local]___[hash:base64:5]"
                 }
+            },
+            {
+                test: /\.scss$/,
+                loaders:
+                    "style-loader!css-loader!sass-loader?sourceMap&modules&localIdentName=[name]__[local]___[hash:base64:5]"
             },
 
             { test: /\.(png|jpg|svg)$/, loader: "url-loader?limit=8192" }
