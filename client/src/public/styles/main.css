@@ -1,0 +1,10 @@
+.app-container {
+    /* background: red; */
+    min-height: 100vh;
+}
+
+.wrap {
+    width: 95%;
+    /* background: blue; */
+    margin: 0 auto;
+}
