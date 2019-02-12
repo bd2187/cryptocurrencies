@@ -13,35 +13,34 @@ class CurrencyProfileContainer extends Component {
         };
 
         this.fetchTradeInfo = this.fetchTradeInfo.bind(this);
+        this.updateCurrencyInfo = this.updateCurrencyInfo.bind(this);
     }
 
     /**
-     * Fetches current data about currencie's price
+     * Fetches current data about currencie's price.
+     * Invokes this.updateCurrencyInfo to store curreny data in state object.
      * @param
      * @return
      */
     componentDidMount() {
         this.fetchTradeInfo();
+        this.updateCurrencyInfo();
     }
 
+    /**
+     * If user switched to different coin, udpdate the currency
+     * info and request trade info on coin
+     * @param
+     * @return
+     */
     componentDidUpdate(prevProps) {
-        const { allCoins } = this.props;
-
-        const updateCurrencyInfo = () => {
-            for (let i = 0; i < allCoins.length; i++) {
-                if (allCoins[i].Name === this.props.match.params.currency) {
-                    this.setState({ currencyInfo: allCoins[i] });
-                    break;
-                }
-            }
-        };
-
-        if (prevProps.allCoins !== this.props.allCoins) updateCurrencyInfo();
+        if (prevProps.allCoins !== this.props.allCoins)
+            this.updateCurrencyInfo();
 
         if (
             prevProps.match.params.currency !== this.props.match.params.currency
         ) {
-            updateCurrencyInfo();
+            this.updateCurrencyInfo();
             this.fetchTradeInfo();
         }
     }
@@ -74,6 +73,23 @@ class CurrencyProfileContainer extends Component {
                 });
             }
         })();
+    }
+
+    /**
+     * Iterates through the allCoins array in the props object to search
+     * and store the coin info in the state object
+     * @param
+     * @return
+     */
+    updateCurrencyInfo() {
+        const { allCoins } = this.props;
+
+        for (let i = 0; i < allCoins.length; i++) {
+            if (allCoins[i].Name === this.props.match.params.currency) {
+                this.setState({ currencyInfo: allCoins[i] });
+                break;
+            }
+        }
     }
 
     render() {
