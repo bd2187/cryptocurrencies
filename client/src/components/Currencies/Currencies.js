@@ -1,20 +1,41 @@
 import React, { Fragment } from "react";
 import CurrencyHistoryContainer from "../CurrencyHistory/CurrencyHistoryContainer";
+import mainStyles from "STYLES/main.css";
+import styles from "./Currencies.css";
 
 const CurrenciesListItem = ({ currency, updateCurrentlyViewedCurrency }) => {
+    const { ImageUrl: imageUrl } = currency.CoinInfo;
+    const { Name: coinShortName } = currency.CoinInfo;
+
     return (
         <li
             onClick={() => {
                 updateCurrentlyViewedCurrency(currency);
             }}
         >
-            <p>{currency.Name}</p>
             <img
                 style={{ width: "50px" }}
-                src={`http://cryptocompare.com/${currency.ImageUrl}`}
+                src={`http://cryptocompare.com/${imageUrl}`}
             />
+            <p>{coinShortName}</p>
         </li>
     );
+};
+
+const CurrentlyViewedCurrency = ({ currentlyViewedCurrency = {} }) => {
+    if (currentlyViewedCurrency.CoinInfo) {
+        const { ImageUrl: imageUrl } = currentlyViewedCurrency.CoinInfo;
+        const { FullName: coinName } = currentlyViewedCurrency.CoinInfo;
+
+        return (
+            <div className={styles["currently-viewed-currency"]}>
+                <img src={`http://cryptocompare.com/${imageUrl}`} />
+                <p>{coinName}</p>
+            </div>
+        );
+    } else {
+        return null;
+    }
 };
 
 const Currencies = ({
@@ -27,12 +48,12 @@ const Currencies = ({
         return <Fragment>Loading</Fragment>;
     } else {
         return (
-            <Fragment>
-                <ul>
+            <div className={mainStyles["wrap"]}>
+                <ul className={styles["currencies-list-container"]}>
                     {currencies.map(currency => {
                         return (
                             <CurrenciesListItem
-                                key={currency.Id}
+                                key={currency.CoinInfo.Id}
                                 currency={currency}
                                 updateCurrentlyViewedCurrency={
                                     updateCurrentlyViewedCurrency
@@ -41,17 +62,13 @@ const Currencies = ({
                         );
                     })}
                 </ul>
-                <p>current:</p>
-                <p>{currentlyViewedCurrency.Name}</p>
-                <img
-                    src={`http://cryptocompare.com/${
-                        currentlyViewedCurrency.ImageUrl
-                    }`}
+                <CurrentlyViewedCurrency
+                    currentlyViewedCurrency={currentlyViewedCurrency}
                 />
                 <CurrencyHistoryContainer
                     currentlyViewedCurrency={currentlyViewedCurrency}
                 />
-            </Fragment>
+            </div>
         );
     }
 };
