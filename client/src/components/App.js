@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from "react";
+import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Dashboard from "./Dashboard/Dashboard";
@@ -9,6 +9,7 @@ const SearchedCurrency = () => <h1>Searched Currency</h1>;
 const PageNotFound = () => <h1>404 not found</h1>;
 
 import { allCoinsEndpoint } from "API/endpoints";
+import mainStyles from "STYLES/main.css";
 
 class App extends Component {
     constructor(props) {
@@ -58,7 +59,7 @@ class App extends Component {
     render() {
         return (
             <Router>
-                <Fragment>
+                <div className={mainStyles["app-container"]}>
                     <Header allCoins={this.state.allCoins} />
                     <Switch>
                         <Route exact path="/" component={Dashboard} />
@@ -75,7 +76,7 @@ class App extends Component {
                         />
                         <Route component={PageNotFound} />
                     </Switch>
-                </Fragment>
+                </div>
             </Router>
         );
     }
