@@ -33,11 +33,6 @@ module.exports = {
                     localIdentName: "[name]__[local]___[hash:base64:5]"
                 }
             },
-            {
-                test: /\.scss$/,
-                loaders:
-                    "style-loader!css-loader!sass-loader?sourceMap&modules&localIdentName=[name]__[local]___[hash:base64:5]"
-            },
 
             { test: /\.(png|jpg|svg)$/, loader: "url-loader?limit=8192" }
         ]
