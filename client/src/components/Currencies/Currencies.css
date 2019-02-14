@@ -4,9 +4,59 @@
     overflow-x: scroll;
 }
 
-.currencies-list-container li {
-    margin: 0 0.5em;
+.currency-item-container {
+    padding: 0.75em 0.75em 1em 1em;
+    background: #395673;
+
+    margin: 0 1em;
+    min-width: 250px;
+    height: 150px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.currency-item-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.currency-item-tag {
+    width: 10%;
+}
+
+.currency-item-tag img {
+    width: 100%;
+}
+
+.currency-item-tag p {
     text-align: center;
+    font-size: 0.25em;
+    margin: 0;
+}
+
+.currency-item-coin-price {
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+}
+
+.currency-item-coin-info {
+    /* display: flex;
+    justify-content: space-between; */
+    font-size: 0.75em;
+}
+
+.above-zero {
+    color: green;
+}
+
+.below-zero {
+    color: red;
+}
+
+.current {
+    background: #6699cc;
 }
 
 .currently-viewed-currency {
