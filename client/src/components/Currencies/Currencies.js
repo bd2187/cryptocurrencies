@@ -1,26 +1,81 @@
-import React, { Fragment } from "react";
+import React, { Fragment, Component } from "react";
 import CurrencyHistoryContainer from "../CurrencyHistory/CurrencyHistoryContainer";
 import mainStyles from "STYLES/main.css";
 import styles from "./Currencies.css";
 
-const CurrenciesListItem = ({ currency, updateCurrentlyViewedCurrency }) => {
-    const { ImageUrl: imageUrl } = currency.CoinInfo;
-    const { Name: coinShortName } = currency.CoinInfo;
+class CurrenciesListItem extends Component {
+    constructor(props) {
+        super(props);
+        this.currencyContainerRef = React.createRef();
+    }
 
-    return (
-        <li
-            onClick={() => {
-                updateCurrentlyViewedCurrency(currency);
-            }}
-        >
-            <img
-                style={{ width: "50px" }}
-                src={`http://cryptocompare.com/${imageUrl}`}
-            />
-            <p>{coinShortName}</p>
-        </li>
-    );
-};
+    onClick(currency) {
+        this.props.updateCurrentlyViewedCurrency(currency);
+        this.currencyContainerRef.current.scrollIntoView({
+            behavior: "smooth"
+        });
+    }
+
+    render() {
+        const {
+            currency,
+
+            currentlyViewedCurrencyName
+        } = this.props;
+
+        const { ImageUrl: imageUrl } = currency.CoinInfo;
+        const { Name: coinShortName } = currency.CoinInfo;
+        const {
+            PRICE: price,
+            CHANGEPCT24HOUR: changePercent,
+            MKTCAP: marketcap
+        } = currency.DISPLAY.USD;
+
+        const determineIfNegOrPos = num => {
+            if (Number(num) > 0) {
+                return "above-zero";
+            } else {
+                return "below-zero";
+            }
+        };
+
+        const changePercentColor = determineIfNegOrPos(changePercent);
+        const isCurrentlyViewedCurrency = () => {
+            return currentlyViewedCurrencyName === coinShortName
+                ? styles.current
+                : "";
+        };
+
+        return (
+            <li
+                onClick={this.onClick.bind(this, currency)}
+                className={`${
+                    styles["currency-item-container"]
+                } ${isCurrentlyViewedCurrency()}`}
+                ref={this.currencyContainerRef}
+            >
+                <div className={styles["currency-item-header"]}>
+                    <div className={styles["currency-item-tag"]}>
+                        <img src={`http://cryptocompare.com/${imageUrl}`} />
+                        <p>{coinShortName}</p>
+                    </div>
+                </div>
+                <p className={styles["currency-item-coin-price"]}>{price}</p>
+                <div className={styles["currency-item-coin-info"]}>
+                    <p>
+                        Change (24):{" "}
+                        <span className={styles[changePercentColor]}>
+                            {changePercent}%
+                        </span>
+                    </p>
+                    <p>
+                        Market Cap: <span>{marketcap}</span>
+                    </p>
+                </div>
+            </li>
+        );
+    }
+}
 
 const CurrentlyViewedCurrency = ({ currentlyViewedCurrency = {} }) => {
     if (currentlyViewedCurrency.CoinInfo) {
@@ -57,6 +112,9 @@ const Currencies = ({
                                 currency={currency}
                                 updateCurrentlyViewedCurrency={
                                     updateCurrentlyViewedCurrency
+                                }
+                                currentlyViewedCurrencyName={
+                                    currentlyViewedCurrency.CoinInfo.Name
                                 }
                             />
                         );
