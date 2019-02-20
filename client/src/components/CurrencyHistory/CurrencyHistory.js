@@ -1,5 +1,6 @@
 import React from "react";
-import * as d3 from "d3";
+
+import { Bar, Line, Pie } from "react-chartjs-2";
 /*
 const CurrencyHistory = ({
     historicalCurrencyData,
@@ -26,118 +27,131 @@ class CurrencyHistory extends React.Component {
     constructor(props) {
         super(props);
 
-        this.chartRef = React.createRef();
-        this.createChart = this.createChart.bind(this);
+        this.updateChartData = this.updateChartData.bind(this);
+        this.state = {
+            yAxisLabels: [],
+            xAxisLabels: []
+        };
     }
 
-    createChart(historicalCurrencyData) {
-        this.chartRef.current.innerHTML = "";
-        const width = 700;
-        const height = 500;
+    updateChartData(historicalCurrencyData) {
+        const months = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ];
 
-        const firstDate = new Date(historicalCurrencyData[0].time);
-        const lastDate = new Date(
-            historicalCurrencyData[historicalCurrencyData.length - 1].time
-        );
+        const yAxisLabels = [];
+        const xAxisLabels = [];
 
-        var highestVal = historicalCurrencyData.reduce(function(
-            accumulator,
-            currentValue
-        ) {
-            var highestValueOfDay = parseInt(currentValue.high);
+        for (let i = 0; i < historicalCurrencyData.length; i++) {
+            const currentItem = historicalCurrencyData[i];
+            const time = new Date(currentItem.time * 1000);
+            const month = time.getMonth();
+            const date = time.getDate();
+            const year = time.getFullYear();
 
-            return highestValueOfDay > accumulator
-                ? highestValueOfDay
-                : accumulator;
-        },
-        0);
+            yAxisLabels.push(`${months[month]} ${date}, ${year}`);
+            xAxisLabels.push(currentItem.high);
+        }
 
-        const chart = d3
-            .select(this.chartRef.current)
-            .attr("preserveAspectRatio", "xMinYMin meet")
-            .attr("viewBox", "0 0 960 500")
-            .append("g")
-            .attr("transform", "translate(100, 0)");
-
-        const x = d3
-            .scaleTime()
-            .domain([firstDate, lastDate])
-            .range([0, width]);
-
-        const y = d3
-            .scaleLinear()
-            .domain([0, highestVal + 100])
-            .range([height, 0]);
-
-        const colors = d3
-            .scaleOrdinal()
-            .domain(["currencies"])
-            .range(["blue"]);
-
-        const graph = chart
-            .selectAll(".graph")
-            .data(historicalCurrencyData)
-            .enter("g");
-        // .attr("class", "graph");
-
-        const parseTime = d3.timeParse("%B %d, %Y");
-
-        graph.append("path").attr("d", function(parentData) {
-            return d3
-                .line()
-                .x(function(d) {
-                    return x(parseTime(new Date(d.time)));
-                })
-                .y(function(d) {
-                    return y(d.high);
-                });
-        });
-
-        // graph
-        //     .append("path")
-        //     .attr("class", "line")
-        //     .style("stroke", d => {
-        //         return colors(d.high);
-        //     })
-        //     .attr("d", parentData => {
-        //         return d3
-        //             .line()
-        //             .x(d => {
-        //                 console.warn(d);
-        //                 return x(parseTime(parentData.time));
-        //             })
-        //             .y(d => y(parentData.high));
-        //     });
-
-        // .y((d) => {return this.y(d);}).curve();
-
-        chart
-            .append("g")
-            .attr("class", "axis axis--x")
-            .attr("transform", `translate(0,${y(0) - 20})`)
-            .call(d3.axisBottom(x));
-
-        chart
-            .append("g")
-            .attr("class", "axis axis--y")
-            .attr("transform", `translate(0,0)`)
-            .call(d3.axisLeft(y));
+        this.setState({ yAxisLabels, xAxisLabels });
     }
 
     componentDidUpdate(prevProps) {
         const { historicalCurrencyData } = this.props;
+
+        // var foo = [
+        //     {
+        //       close: 3571.92,
+        //       high: 3599.83,
+        //       low: 3535.19,
+        //       open: 3567.73,
+        //       time: 1548028800,
+        //       volumefrom: 36101.4,
+        //       volumeto: 129000924.6
+        //     }
+        //   ];
+
+        //   var bar = [
+        //     {
+        //       close: 3571.92,
+        //       high: 3599.83,
+        //       low: 3535.19,
+        //       open: 3567123.73,
+        //       time: 1548028800,
+        //       volumefrom: 36101.4,
+        //       volumeto: 129000924.6
+        //     }
+        //   ];
+
+        //   var first = [];
+        //   var second = [];
+
+        //   for (let i = 0; i < foo.length; i++) {
+        //       var keys1 = Object.keys(foo[i]);
+        //     keys1.forEach(function(item){
+        //           first.push(foo[i][item])
+        //     });
+
+        //     var keys2 = Object.keys(bar[i]);
+        //     keys2.forEach(function(item){
+        //           second.push(bar[i][item])
+        //     });
+
+        //   }
+
+        //   var isTheSame = true;
+        //   for(let i = 0; i < first.length; i++) {
+        //       if(second.indexOf(first[i]) === -1) {
+        //         isTheSame = false;
+        //         break;
+        //     }
+        //   }
+
+        //   console.warn(isTheSame)
+
+        const foo = prevProps.historicalCurrencyData[0];
+        const bar = historicalCurrencyData[0];
+        console.warn(foo);
+        /*
+            Update chart if either:
+            1) The two arrays have different lengths
+            2) The two arrays are not the same
+        */
         if (
             prevProps.historicalCurrencyData.length !==
             historicalCurrencyData.length
         ) {
-            this.createChart(historicalCurrencyData);
+            this.updateChartData(historicalCurrencyData);
         }
     }
 
     render() {
+        if (this.state.yAxisLabels.length === 0) return null;
+
+        const data = {
+            labels: this.state.yAxisLabels,
+            datasets: [
+                {
+                    data: this.state.xAxisLabels,
+                    backgroundColor: ["rgba(255, 99, 132, 0.6)"]
+                }
+            ]
+        };
+
         return (
-            <div style={{ backgroundColor: "blue" }}>
-                <svg ref={this.chartRef} />
+            <div className="chart">
+                <Line data={data} options={{ maintainAspectRatio: true }} />
             </div>
         );
     }
