@@ -27,10 +27,12 @@ class CurrencyHistoryContainer extends Component {
             currencyInfo: this.props.currentlyViewedCurrency
         });
 
-        this.updateTimeline(
-            this.props.currentlyViewedCurrency.Name,
-            this.state.timeline
-        );
+        if (Object.keys(this.props.currentlyViewedCurrency).length > 0) {
+            this.updateTimeline(
+                this.props.currentlyViewedCurrency.CoinInfo.Name,
+                this.state.timeline
+            );
+        }
     }
 
     /**
@@ -41,15 +43,15 @@ class CurrencyHistoryContainer extends Component {
      */
     componentDidUpdate(prevProps) {
         if (
-            this.props.currentlyViewedCurrency.Name ===
-            this.state.currencyInfo.Name
+            this.props.currentlyViewedCurrency.CoinInfo.Name ===
+            this.state.currencyInfo.CoinInfo.Name
         )
             return;
 
         this.setState({ currencyInfo: this.props.currentlyViewedCurrency });
 
         this.updateTimeline(
-            this.props.currentlyViewedCurrency.Name,
+            this.props.currentlyViewedCurrency.CoinInfo.Name,
             this.state.timeline
         );
     }
@@ -84,14 +86,16 @@ class CurrencyHistoryContainer extends Component {
                 this.setState({
                     historicalCurrencyData: parsedData.Data,
                     fetchingCurrencyData: false,
-                    fetchingCurrencyError: false
+                    fetchingCurrencyError: false,
+                    timeline
                 });
             } catch (err) {
                 console.error(err);
 
                 this.setState({
                     fetchingCurrencyData: false,
-                    fetchingCurrencyError: true
+                    fetchingCurrencyError: true,
+                    timeline
                 });
             }
         })();
@@ -102,8 +106,10 @@ class CurrencyHistoryContainer extends Component {
             <CurrencyHistory
                 historicalCurrencyData={this.state.historicalCurrencyData}
                 updateTimeline={this.updateTimeline}
+                timeline={this.state.timeline}
                 fetchingCurrencyData={this.state.fetchingCurrencyData}
                 fetchingCurrencyError={this.state.fetchingCurrencyError}
+                currencyInfo={this.state.currencyInfo}
             />
         );
     }
