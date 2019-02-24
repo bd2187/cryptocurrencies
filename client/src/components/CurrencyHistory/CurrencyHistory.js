@@ -125,15 +125,22 @@ class CurrencyHistory extends React.Component {
                 }
             ]
         };
-
+        console.warn(this.props);
         return (
-            <div className="chart">
-                <Line
-                    data={data}
-                    options={{
-                        maintainAspectRatio: true
-                    }}
-                />
+            <div>
+                <div className="chart">
+                    <div>
+                        <button>7d</button>
+                        <button>1m</button>
+                        <button>1y</button>
+                    </div>
+                    <Line
+                        data={data}
+                        options={{
+                            maintainAspectRatio: true
+                        }}
+                    />
+                </div>
             </div>
         );
     }
