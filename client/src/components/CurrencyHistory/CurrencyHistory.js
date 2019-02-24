@@ -70,59 +70,33 @@ class CurrencyHistory extends React.Component {
     componentDidUpdate(prevProps) {
         const { historicalCurrencyData } = this.props;
 
-        // var foo = [
-        //     {
-        //       close: 3571.92,
-        //       high: 3599.83,
-        //       low: 3535.19,
-        //       open: 3567.73,
-        //       time: 1548028800,
-        //       volumefrom: 36101.4,
-        //       volumeto: 129000924.6
-        //     }
-        //   ];
+        let isTheSame = true;
 
-        //   var bar = [
-        //     {
-        //       close: 3571.92,
-        //       high: 3599.83,
-        //       low: 3535.19,
-        //       open: 3567123.73,
-        //       time: 1548028800,
-        //       volumefrom: 36101.4,
-        //       volumeto: 129000924.6
-        //     }
-        //   ];
+        /*
+            If both historicalCurrencyData arrays have items from prevProps object and this.props,
+            check if both arrays are the same
+        */
+        if (
+            prevProps.historicalCurrencyData.length > 1 &&
+            historicalCurrencyData.length > 1
+        ) {
+            const firstItemFromPrevious = prevProps.historicalCurrencyData[0];
+            const firstItemFromCurrent = historicalCurrencyData[0];
 
-        //   var first = [];
-        //   var second = [];
+            const keys1 = Object.keys(firstItemFromPrevious);
+            const keys2 = Object.keys(firstItemFromCurrent);
 
-        //   for (let i = 0; i < foo.length; i++) {
-        //       var keys1 = Object.keys(foo[i]);
-        //     keys1.forEach(function(item){
-        //           first.push(foo[i][item])
-        //     });
+            const prev = keys1.map(prop => firstItemFromPrevious[prop]);
+            const second = keys2.map(prop => firstItemFromCurrent[prop]);
 
-        //     var keys2 = Object.keys(bar[i]);
-        //     keys2.forEach(function(item){
-        //           second.push(bar[i][item])
-        //     });
+            for (let i = 0; i < prev.length; i++) {
+                if (second.indexOf(prev[i]) === -1) {
+                    isTheSame = false;
+                    break;
+                }
+            }
+        }
 
-        //   }
-
-        //   var isTheSame = true;
-        //   for(let i = 0; i < first.length; i++) {
-        //       if(second.indexOf(first[i]) === -1) {
-        //         isTheSame = false;
-        //         break;
-        //     }
-        //   }
-
-        //   console.warn(isTheSame)
-
-        const foo = prevProps.historicalCurrencyData[0];
-        const bar = historicalCurrencyData[0];
-        console.warn(foo);
         /*
             Update chart if either:
             1) The two arrays have different lengths
@@ -130,7 +104,8 @@ class CurrencyHistory extends React.Component {
         */
         if (
             prevProps.historicalCurrencyData.length !==
-            historicalCurrencyData.length
+                historicalCurrencyData.length ||
+            !isTheSame
         ) {
             this.updateChartData(historicalCurrencyData);
         }
@@ -144,14 +119,21 @@ class CurrencyHistory extends React.Component {
             datasets: [
                 {
                     data: this.state.xAxisLabels,
-                    backgroundColor: ["rgba(255, 99, 132, 0.6)"]
+                    borderColor: ["rgba(255, 99, 132, 0.6)"],
+                    lineTension: 0,
+                    label: "Currency USD"
                 }
             ]
         };
 
         return (
             <div className="chart">
-                <Line data={data} options={{ maintainAspectRatio: true }} />
+                <Line
+                    data={data}
+                    options={{
+                        maintainAspectRatio: true
+                    }}
+                />
             </div>
         );
     }
