@@ -1,6 +1,7 @@
 import React from "react";
+import styles from "./CurrencyHistory.css";
+import { Line } from "react-chartjs-2";
 
-import { Bar, Line, Pie } from "react-chartjs-2";
 /*
 const CurrencyHistory = ({
     historicalCurrencyData,
@@ -22,6 +23,35 @@ const CurrencyHistory = ({
     // }
 };
 */
+
+const TimelineButtons = ({ updateTimeline, coinName, currentTimeline }) => {
+    const isActive = timeline => {
+        return currentTimeline === timeline ? styles.active : "";
+    };
+
+    return (
+        <div>
+            <button
+                className={isActive("week")}
+                onClick={updateTimeline.bind(null, coinName, "week")}
+            >
+                7d
+            </button>
+            <button
+                className={isActive("month")}
+                onClick={updateTimeline.bind(null, coinName, "month")}
+            >
+                1m
+            </button>
+            <button
+                className={isActive("year")}
+                onClick={updateTimeline.bind(null, coinName, "year")}
+            >
+                1y
+            </button>
+        </div>
+    );
+};
 
 class CurrencyHistory extends React.Component {
     constructor(props) {
@@ -125,15 +155,15 @@ class CurrencyHistory extends React.Component {
                 }
             ]
         };
-        console.warn(this.props);
+
         return (
             <div>
+                <TimelineButtons
+                    updateTimeline={this.props.updateTimeline}
+                    coinName={this.props.currencyInfo.CoinInfo.Name}
+                    currentTimeline={this.props.timeline}
+                />
                 <div className="chart">
-                    <div>
-                        <button>7d</button>
-                        <button>1m</button>
-                        <button>1y</button>
-                    </div>
                     <Line
                         data={data}
                         options={{
