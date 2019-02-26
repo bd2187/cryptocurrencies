@@ -120,12 +120,14 @@ const Currencies = ({
                         );
                     })}
                 </ul>
-                <CurrentlyViewedCurrency
-                    currentlyViewedCurrency={currentlyViewedCurrency}
-                />
-                <CurrencyHistoryContainer
-                    currentlyViewedCurrency={currentlyViewedCurrency}
-                />
+                <div className={styles["currently-viewed-currency-container"]}>
+                    <CurrentlyViewedCurrency
+                        currentlyViewedCurrency={currentlyViewedCurrency}
+                    />
+                    <CurrencyHistoryContainer
+                        currentlyViewedCurrency={currentlyViewedCurrency}
+                    />
+                </div>
             </div>
         );
     }
