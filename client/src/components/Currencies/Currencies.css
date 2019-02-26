@@ -59,12 +59,23 @@
     background: #6699cc;
 }
 
+.currently-viewed-currency-container {
+    /* background: orange; */
+}
+
 .currently-viewed-currency {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 200px;
+    margin: 0.75em auto;
 }
 
 .currently-viewed-currency img {
     width: 50%;
+}
+
+.currently-viewed-currency p {
+    margin: 0.25em 0;
+    color: #fff;
 }
