@@ -1,0 +1,15 @@
+.active {
+    background: rgb(105, 158, 212);
+}
+
+.timeline-buttons-container {
+    max-width: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 0.75em auto;
+}
+
+/* .timeline-buttons-container button {
+    
+} */
