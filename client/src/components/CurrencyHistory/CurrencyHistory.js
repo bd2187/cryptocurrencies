@@ -30,7 +30,7 @@ const TimelineButtons = ({ updateTimeline, coinName, currentTimeline }) => {
     };
 
     return (
-        <div>
+        <div className={styles["timeline-buttons-container"]}>
             <button
                 className={isActive("week")}
                 onClick={updateTimeline.bind(null, coinName, "week")}
@@ -65,21 +65,6 @@ class CurrencyHistory extends React.Component {
     }
 
     updateChartData(historicalCurrencyData) {
-        const months = [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December"
-        ];
-
         const yAxisLabels = [];
         const xAxisLabels = [];
 
@@ -90,7 +75,7 @@ class CurrencyHistory extends React.Component {
             const date = time.getDate();
             const year = time.getFullYear();
 
-            yAxisLabels.push(`${months[month]} ${date}, ${year}`);
+            yAxisLabels.push(`${month + 1}/${date}/${year}`);
             xAxisLabels.push(currentItem.high);
         }
 
@@ -149,7 +134,7 @@ class CurrencyHistory extends React.Component {
             datasets: [
                 {
                     data: this.state.xAxisLabels,
-                    borderColor: ["rgba(255, 99, 132, 0.6)"],
+                    borderColor: ["rgba(105, 158, 212, 0.6)"],
                     lineTension: 0,
                     label: "Currency USD"
                 }
@@ -167,7 +152,10 @@ class CurrencyHistory extends React.Component {
                     <Line
                         data={data}
                         options={{
-                            maintainAspectRatio: true
+                            maintainAspectRatio: true,
+                            legend: {
+                                position: "bottom"
+                            }
                         }}
                     />
                 </div>
