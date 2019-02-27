@@ -1,7 +1,3 @@
-.active {
-    background: rgb(105, 158, 212);
-}
-
 .timeline-buttons-container {
     max-width: 300px;
     display: flex;
@@ -10,6 +6,41 @@
     margin: 0.75em auto;
 }
 
-/* .timeline-buttons-container button {
-    
-} */
+.timeline-buttons-container button {
+    background: none;
+    border: none;
+    border-bottom: 2px solid #fff;
+    color: #fff;
+    outline: none;
+    font-size: 1.25em;
+    padding-bottom: 7px;
+}
+
+.timeline-buttons-container button.active {
+    border-bottom: 2px solid rgb(105, 158, 212);
+    color: rgb(105, 158, 212);
+}
+
+.currency-history-container {
+    position: relative;
+    padding: 0.5em;
+}
+
+.loading-currency-data-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-currency-data-container p {
+    font-size: 2em;
+    color: #2b7bcc;
+}
