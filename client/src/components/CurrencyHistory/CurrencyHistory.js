@@ -1,5 +1,7 @@
 import React from "react";
+import Loading from "../Loading/Loading";
 import styles from "./CurrencyHistory.css";
+
 import { Line } from "react-chartjs-2";
 
 /*
@@ -141,8 +143,12 @@ class CurrencyHistory extends React.Component {
             ]
         };
 
+        const isLoading = () => {
+            return this.props.fetchingCurrencyData;
+        };
+
         return (
-            <div>
+            <div className={styles["currency-history-container"]}>
                 <TimelineButtons
                     updateTimeline={this.props.updateTimeline}
                     coinName={this.props.currencyInfo.CoinInfo.Name}
@@ -159,6 +165,11 @@ class CurrencyHistory extends React.Component {
                         }}
                     />
                 </div>
+                {isLoading() ? (
+                    <div className={styles["loading-currency-data-container"]}>
+                        <Loading text={"Loading Currency Data"} ms={200} />
+                    </div>
+                ) : null}
             </div>
         );
     }
