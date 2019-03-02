@@ -77,22 +77,6 @@ class CurrenciesListItem extends Component {
     }
 }
 
-const CurrentlyViewedCurrency = ({ currentlyViewedCurrency = {} }) => {
-    if (currentlyViewedCurrency.CoinInfo) {
-        const { ImageUrl: imageUrl } = currentlyViewedCurrency.CoinInfo;
-        const { FullName: coinName } = currentlyViewedCurrency.CoinInfo;
-
-        return (
-            <div className={styles["currently-viewed-currency"]}>
-                <img src={`http://cryptocompare.com/${imageUrl}`} />
-                <p>{coinName}</p>
-            </div>
-        );
-    } else {
-        return null;
-    }
-};
-
 const Currencies = ({
     fetchingCurrencies,
     currentlyViewedCurrency,
@@ -121,9 +105,6 @@ const Currencies = ({
                     })}
                 </ul>
                 <div className={styles["currently-viewed-currency-container"]}>
-                    <CurrentlyViewedCurrency
-                        currentlyViewedCurrency={currentlyViewedCurrency}
-                    />
                     <CurrencyHistoryContainer
                         currentlyViewedCurrency={currentlyViewedCurrency}
                     />
