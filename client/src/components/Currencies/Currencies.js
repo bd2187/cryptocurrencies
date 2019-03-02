@@ -1,5 +1,6 @@
 import React, { Fragment, Component } from "react";
 import CurrencyHistoryContainer from "../CurrencyHistory/CurrencyHistoryContainer";
+import Loading from "../Loading/Loading";
 import mainStyles from "STYLES/main.css";
 import styles from "./Currencies.css";
 
@@ -17,11 +18,7 @@ class CurrenciesListItem extends Component {
     }
 
     render() {
-        const {
-            currency,
-
-            currentlyViewedCurrencyName
-        } = this.props;
+        const { currency, currentlyViewedCurrencyName } = this.props;
 
         const { ImageUrl: imageUrl } = currency.CoinInfo;
         const { Name: coinShortName } = currency.CoinInfo;
@@ -84,7 +81,7 @@ const Currencies = ({
     updateCurrentlyViewedCurrency
 }) => {
     if (fetchingCurrencies) {
-        return <Fragment>Loading</Fragment>;
+        return <Loading text={"Fetching currencies..."} ms={200} />;
     } else {
         return (
             <div className={mainStyles["wrap"]}>
