@@ -15,3 +15,7 @@
 .currency-table-row:nth-child(even) {
     background-color: #1b1b1c;
 }
+
+.currency-table-row td:last-child {
+    text-align: right;
+}
