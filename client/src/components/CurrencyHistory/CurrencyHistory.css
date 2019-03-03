@@ -24,6 +24,8 @@
 .currency-history-container {
     position: relative;
     padding: 0.5em;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .loading-currency-data-container {
@@ -43,4 +45,7 @@
 .loading-currency-data-container p {
     font-size: 2em;
     color: #2b7bcc;
+}
+
+.currency-profile {
 }
