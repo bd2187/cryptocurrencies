@@ -1,21 +1,30 @@
 import React, { Component, Fragment } from "react";
+import styles from "./Search.css";
 import { Link } from "react-router-dom";
 
-const SearchResults = ({ results }) => {
+const SearchResults = ({ results, selected, updateSelected, resetList }) => {
     return (
-        <Fragment>
-            <ul>
-                {results.map(function(result) {
-                    const link = `/search/${result.Symbol}`;
+        <ul className={styles["search-results"]}>
+            <li>Coins</li>
+            {results.map(function(result) {
+                const link = `/search/${result.Symbol}`;
 
-                    return (
-                        <li key={result.FullName}>
-                            <Link to={link}>{result.FullName}</Link>
-                        </li>
-                    );
-                })}
-            </ul>
-        </Fragment>
+                return (
+                    <li
+                        key={result.FullName}
+                        className={`${
+                            result.Symbol === selected ? styles.selected : ""
+                        }`}
+                        onMouseEnter={() => updateSelected(result.Symbol)}
+                    >
+                        <Link className={styles["coin-link"]} to={link}>
+                            {result.FullName}
+                        </Link>
+                    </li>
+                );
+            })}
+            <li onClick={resetList}>Hide Results</li>
+        </ul>
     );
 };
 
@@ -26,7 +35,7 @@ class Search extends Component {
             searchValue: ""
         };
 
-        this.onChange = this.onChange.bind(this);
+        this.keyUp = this.keyUp.bind(this);
     }
 
     /**
@@ -36,7 +45,19 @@ class Search extends Component {
      * @param Object evt
      * @return
      */
-    onChange(evt) {
+    keyUp(evt) {
+        // If user presses down key
+        if (evt.keyCode === 40) {
+            this.props.handleListNavigation("next");
+            return;
+        }
+
+        // If user presses up key
+        if (evt.keyCode === 38) {
+            this.props.handleListNavigation("prev");
+            return;
+        }
+
         this.setState({ searchValue: evt.target.value });
         var value = evt.target.value;
 
@@ -55,15 +76,31 @@ class Search extends Component {
     }
 
     render() {
-        const { searchResults } = this.props;
+        const {
+            searchResults,
+            selected,
+            searchCoin,
+            updateSelected,
+            resetList
+        } = this.props;
+
         return (
-            <div>
-                <input
-                    type="text"
-                    value={this.state.value}
-                    onChange={this.onChange}
-                />
-                <SearchResults results={searchResults} />
+            <div className={styles.search}>
+                <form onSubmit={searchCoin}>
+                    <input
+                        type="text"
+                        value={this.state.value}
+                        onKeyUp={this.keyUp}
+                    />
+                </form>
+                {searchResults.length > 0 ? (
+                    <SearchResults
+                        results={searchResults}
+                        selected={selected}
+                        updateSelected={updateSelected}
+                        resetList={resetList}
+                    />
+                ) : null}
             </div>
         );
     }
