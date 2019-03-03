@@ -1,0 +1,13 @@
+.header {
+    background: #395673;
+    display: flex;
+    padding: 0.25em 1em;
+    height: 50px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.homepage-link {
+    color: #fff;
+    text-decoration: none;
+}
