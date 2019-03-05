@@ -24,7 +24,7 @@
 .currency-history-container {
     position: relative;
     padding: 0.5em;
-    max-width: 800px;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -47,5 +47,8 @@
     color: #2b7bcc;
 }
 
-.currency-profile {
+@media only screen and (min-width: 700px) {
+    .currency-history-container {
+        width: 55%;
+    }
 }
