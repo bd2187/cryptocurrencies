@@ -91,6 +91,7 @@ class Search extends Component {
                         type="text"
                         value={this.state.value}
                         onKeyUp={this.keyUp}
+                        placeholder="Enter currency here"
                     />
                 </form>
                 {searchResults.length > 0 ? (
