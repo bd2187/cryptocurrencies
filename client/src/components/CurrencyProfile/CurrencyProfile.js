@@ -73,7 +73,9 @@ const CurrencyProfile = ({
                         currentlyViewedCurrency={currentlyViewedCurrency}
                     />
                 ) : (
-                    <Loading text={"Loading Currency Data"} ms={200} />
+                    <div className={styles["loading-container"]}>
+                        <Loading text={"Loading Chart"} ms={200} />
+                    </div>
                 )}
                 <CurrencyTable
                     currencyInfo={currencyInfo}
