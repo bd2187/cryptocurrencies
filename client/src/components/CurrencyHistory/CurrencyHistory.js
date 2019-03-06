@@ -1,5 +1,6 @@
 import React from "react";
 import Loading from "../Loading/Loading";
+import Loader from "../Loader/Loader";
 import styles from "./CurrencyHistory.css";
 
 import { Line } from "react-chartjs-2";
@@ -154,22 +155,19 @@ class CurrencyHistory extends React.Component {
                     coinName={this.props.currencyInfo.CoinInfo.Name}
                     currentTimeline={this.props.timeline}
                 />
-                <div className="chart">
-                    <Line
-                        data={data}
-                        options={{
-                            maintainAspectRatio: true,
-                            legend: {
-                                position: "bottom"
-                            }
-                        }}
-                    />
-                </div>
-                {isLoading() ? (
-                    <div className={styles["loading-currency-data-container"]}>
-                        <Loading text={"Loading Currency Data"} ms={200} />
+                <Loader isLoading={this.props.fetchingCurrencyData}>
+                    <div className="chart">
+                        <Line
+                            data={data}
+                            options={{
+                                maintainAspectRatio: true,
+                                legend: {
+                                    position: "bottom"
+                                }
+                            }}
+                        />
                     </div>
-                ) : null}
+                </Loader>
             </div>
         );
     }
