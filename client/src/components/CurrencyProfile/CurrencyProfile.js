@@ -1,47 +1,50 @@
 import React from "react";
 import Loading from "../Loading/Loading";
+import Loader from "../Loader/Loader";
 import CurrentHistoryContainer from "../CurrencyHistory/CurrencyHistoryContainer";
 import styles from "./CurrencyProfile.css";
 
 const CurrencyTable = ({ currencyInfo, currencyPrice }) => {
     return (
-        <table className={styles["currency-table"]}>
-            <tbody>
-                <tr className={styles["currency-table-row"]}>
-                    <td>Price:</td>
-                    <td>{currencyPrice.USD.PRICE}</td>
-                </tr>
+        <Loader>
+            <table className={styles["currency-table"]}>
+                <tbody>
+                    <tr className={styles["currency-table-row"]}>
+                        <td>Price:</td>
+                        <td>{currencyPrice.USD.PRICE}</td>
+                    </tr>
 
-                <tr className={styles["currency-table-row"]}>
-                    <td>Market Rank:</td>
-                    <td>{currencyInfo.SortOrder}</td>
-                </tr>
+                    <tr className={styles["currency-table-row"]}>
+                        <td>Market Rank:</td>
+                        <td>{currencyInfo.SortOrder}</td>
+                    </tr>
 
-                <tr className={styles["currency-table-row"]}>
-                    <td>Market Cap:</td>
-                    <td>{currencyPrice.USD.MKTCAP}</td>
-                </tr>
+                    <tr className={styles["currency-table-row"]}>
+                        <td>Market Cap:</td>
+                        <td>{currencyPrice.USD.MKTCAP}</td>
+                    </tr>
 
-                <tr className={styles["currency-table-row"]}>
-                    <td>Total Supply:</td>
-                    <td>{currencyPrice.USD.SUPPLY}</td>
-                </tr>
+                    <tr className={styles["currency-table-row"]}>
+                        <td>Total Supply:</td>
+                        <td>{currencyPrice.USD.SUPPLY}</td>
+                    </tr>
 
-                <tr className={styles["currency-table-row"]}>
-                    <td>Today's High/Low</td>
-                    <td>
-                        {`${currencyPrice.USD.HIGH24HOUR}/${
-                            currencyPrice.USD.LOW24HOUR
-                        }`}
-                    </td>
-                </tr>
+                    <tr className={styles["currency-table-row"]}>
+                        <td>Today's High/Low</td>
+                        <td>
+                            {`${currencyPrice.USD.HIGH24HOUR}/${
+                                currencyPrice.USD.LOW24HOUR
+                            }`}
+                        </td>
+                    </tr>
 
-                <tr className={styles["currency-table-row"]}>
-                    <td>Change % Last 24 Hours:</td>
-                    <td>{currencyPrice.USD.CHANGEPCT24HOUR}</td>
-                </tr>
-            </tbody>
-        </table>
+                    <tr className={styles["currency-table-row"]}>
+                        <td>Change % Last 24 Hours:</td>
+                        <td>{currencyPrice.USD.CHANGEPCT24HOUR}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </Loader>
     );
 };
 
