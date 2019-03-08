@@ -1,5 +1,4 @@
 import React from "react";
-import Loading from "../Loading/Loading";
 import Loader from "../Loader/Loader";
 import CurrentHistoryContainer from "../CurrencyHistory/CurrencyHistoryContainer";
 import styles from "./CurrencyProfile.css";
@@ -55,7 +54,7 @@ const CurrencyProfile = ({
     errorFetchingData
 }) => {
     if (fetchingCurrencyData || !currencyPrice.hasOwnProperty("USD")) {
-        return <Loading text={"Loading Currency"} ms={400} />;
+        return null;
     } else if (errorFetchingData) {
         return <h1>error</h1>;
     } else {
@@ -71,15 +70,13 @@ const CurrencyProfile = ({
 
         return (
             <div className={styles["currency-profile"]}>
-                {currentlyViewedCurrency ? (
-                    <CurrentHistoryContainer
-                        currentlyViewedCurrency={currentlyViewedCurrency}
-                    />
-                ) : (
-                    <div className={styles["loading-container"]}>
-                        <Loading text={"Loading Chart"} ms={200} />
-                    </div>
-                )}
+                <div className={styles["current-history-container"]}>
+                    {currentlyViewedCurrency ? (
+                        <CurrentHistoryContainer
+                            currentlyViewedCurrency={currentlyViewedCurrency}
+                        />
+                    ) : null}
+                </div>
                 <CurrencyTable
                     currencyInfo={currencyInfo}
                     currencyPrice={currencyPrice}
