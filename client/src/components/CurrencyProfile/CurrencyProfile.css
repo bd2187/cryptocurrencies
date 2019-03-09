@@ -21,25 +21,18 @@
     text-align: right;
 }
 
-.loading-container {
-    width: 100%;
-    margin: 4em 0;
-    font-size: 1.5em;
-    display: flex;
-    justify-content: center;
-    color: #5580ab;
-}
-
 @media only screen and (min-width: 700px) {
     .currency-profile {
         display: flex;
         align-items: center;
+        justify-content: center;
         max-width: 1400px;
+        min-height: 500px;
         margin: 2em auto 0;
+        padding: 2em;
     }
 
-    .loading-container {
+    .current-history-container {
         width: 70%;
-        font-size: 2em;
     }
 }
