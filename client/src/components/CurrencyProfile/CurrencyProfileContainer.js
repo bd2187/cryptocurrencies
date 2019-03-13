@@ -56,16 +56,19 @@ class CurrencyProfileContainer extends Component {
 
                 let parsedCurrencyData = await currencyData.json();
 
-                this.setState({
-                    currencyPrice:
-                        parsedCurrencyData.DISPLAY[
-                            Object.keys(parsedCurrencyData.DISPLAY)
-                        ],
-                    fetchingCurrencyData: false,
-                    errorFetchingData: false
-                });
+                if (parsedCurrencyData.DISPLAY) {
+                    this.setState({
+                        currencyPrice:
+                            parsedCurrencyData.DISPLAY[
+                                Object.keys(parsedCurrencyData.DISPLAY)
+                            ],
+                        fetchingCurrencyData: false,
+                        errorFetchingData: false
+                    });
+                } else {
+                    throw parsedCurrencyData;
+                }
             } catch (err) {
-                console.error(err);
                 this.setState({
                     currencyData: {},
                     fetchingCurrencyData: false,
