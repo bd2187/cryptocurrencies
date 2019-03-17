@@ -21,6 +21,13 @@
     text-align: right;
 }
 
+.error-message {
+    width: 90%;
+    text-align: center;
+    color: #fff;
+    margin: 2em auto;
+}
+
 @media only screen and (min-width: 700px) {
     .currency-profile {
         display: flex;
