@@ -85,26 +85,32 @@ const Currencies = ({
     } else {
         return (
             <div className={mainStyles["wrap"]}>
-                <ul className={styles["currencies-list-container"]}>
-                    {currencies.map(currency => {
-                        return (
-                            <CurrenciesListItem
-                                key={currency.CoinInfo.Id}
-                                currency={currency}
-                                updateCurrentlyViewedCurrency={
-                                    updateCurrentlyViewedCurrency
-                                }
-                                currentlyViewedCurrencyName={
-                                    currentlyViewedCurrency.CoinInfo.Name
-                                }
-                            />
-                        );
-                    })}
-                </ul>
-                <div className={styles["currently-viewed-currency-container"]}>
-                    <CurrencyHistoryContainer
-                        currentlyViewedCurrency={currentlyViewedCurrency}
-                    />
+                <div className={styles["content-container"]}>
+                    <ul className={styles["currencies-list-container"]}>
+                        {currencies.map(currency => {
+                            return (
+                                <CurrenciesListItem
+                                    key={currency.CoinInfo.Id}
+                                    currency={currency}
+                                    updateCurrentlyViewedCurrency={
+                                        updateCurrentlyViewedCurrency
+                                    }
+                                    currentlyViewedCurrencyName={
+                                        currentlyViewedCurrency.CoinInfo.Name
+                                    }
+                                />
+                            );
+                        })}
+                    </ul>
+                    <div
+                        className={
+                            styles["currently-viewed-currency-container"]
+                        }
+                    >
+                        <CurrencyHistoryContainer
+                            currentlyViewedCurrency={currentlyViewedCurrency}
+                        />
+                    </div>
                 </div>
             </div>
         );
