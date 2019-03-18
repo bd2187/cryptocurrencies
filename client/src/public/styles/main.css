@@ -1,7 +1,11 @@
+body,
+.app-container {
+    background: #212121;
+}
+
 .app-container {
     /* background: red; */
     min-height: 100vh;
-    background: #212121;
 }
 
 .wrap {
