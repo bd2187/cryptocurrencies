@@ -9,7 +9,8 @@ class CurrencyProfileContainer extends Component {
             currencyInfo: {},
             currencyPrice: {},
             fetchingCurrencyData: false,
-            errorFetchingData: false
+            errorFetchingData: false,
+            errorMessage: ""
         };
 
         this.fetchTradeInfo = this.fetchTradeInfo.bind(this);
@@ -63,16 +64,22 @@ class CurrencyProfileContainer extends Component {
                                 Object.keys(parsedCurrencyData.DISPLAY)
                             ],
                         fetchingCurrencyData: false,
-                        errorFetchingData: false
+                        errorFetchingData: false,
+                        errorMessage: ""
                     });
                 } else {
                     throw parsedCurrencyData;
                 }
             } catch (err) {
+                const errorMessage =
+                    err && err.Message
+                        ? err.Message
+                        : "Sorry for the inconvenience. We could not fetch the data for this cryptocurrency. Please try another currency";
                 this.setState({
                     currencyData: {},
                     fetchingCurrencyData: false,
-                    errorFetchingData: true
+                    errorFetchingData: true,
+                    errorMessage
                 });
             }
         })();
@@ -100,7 +107,8 @@ class CurrencyProfileContainer extends Component {
             currencyInfo,
             currencyPrice,
             fetchingCurrencyData,
-            errorFetchingData
+            errorFetchingData,
+            errorMessage
         } = this.state;
         return (
             <CurrencyProfile
@@ -108,6 +116,7 @@ class CurrencyProfileContainer extends Component {
                 currencyPrice={currencyPrice}
                 fetchingCurrencyData={fetchingCurrencyData}
                 errorFetchingData={errorFetchingData}
+                errorMessage={errorMessage}
             />
         );
     }
