@@ -51,12 +51,18 @@ const CurrencyProfile = ({
     currencyInfo,
     currencyPrice,
     fetchingCurrencyData,
-    errorFetchingData
+    errorFetchingData,
+    errorMessage
 }) => {
-    if (fetchingCurrencyData || !currencyPrice.hasOwnProperty("USD")) {
+    if (
+        (fetchingCurrencyData || !currencyPrice.hasOwnProperty("USD")) &&
+        !errorFetchingData
+    ) {
         return null;
     } else if (errorFetchingData) {
-        return <h1>error</h1>;
+        return (
+            <h1 className={styles["error-message"]}>Error: {errorMessage}</h1>
+        );
     } else {
         let currentlyViewedCurrency = null;
 
