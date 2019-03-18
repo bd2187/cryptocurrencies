@@ -80,3 +80,32 @@
     margin: 0.25em 0;
     color: #fff;
 }
+
+@media only screen and (min-width: 850px) {
+    .content-container {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        margin: 2em 0;
+    }
+
+    .currently-viewed-currency-container {
+        width: 75%;
+    }
+
+    .currencies-list-container {
+        flex-direction: column;
+        width: 25%;
+        max-height: 600px;
+    }
+
+    .currency-item-container {
+        margin: 0;
+        margin-bottom: 0.75em;
+    }
+
+    .currency-item-coin-price {
+        font-size: 2em;
+        margin-bottom: 0.25em;
+    }
+}
