@@ -6,6 +6,7 @@ import styles from "./CurrencyProfile.css";
 const CurrencyTable = ({ currencyInfo, currencyPrice }) => {
     return (
         <Loader>
+            <h1 className={styles["currency-name"]}>{currencyInfo.FullName}</h1>
             <table className={styles["currency-table"]}>
                 <tbody>
                     <tr className={styles["currency-table-row"]}>
