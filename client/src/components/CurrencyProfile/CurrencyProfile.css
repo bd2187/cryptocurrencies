@@ -21,6 +21,13 @@
     text-align: right;
 }
 
+.currency-name {
+    text-align: center;
+    color: #fff;
+    font-size: 1.25em;
+    letter-spacing: 2px;
+}
+
 .error-message {
     width: 90%;
     text-align: center;
