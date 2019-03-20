@@ -35,6 +35,13 @@ const TimelineButtons = ({ updateTimeline, coinName, currentTimeline }) => {
     return (
         <div className={styles["timeline-buttons-container"]}>
             <button
+                className={isActive("day")}
+                onClick={updateTimeline.bind(null, coinName, "day")}
+            >
+                24h
+            </button>
+
+            <button
                 className={isActive("week")}
                 onClick={updateTimeline.bind(null, coinName, "week")}
             >
@@ -78,7 +85,16 @@ class CurrencyHistory extends React.Component {
             const date = time.getDate();
             const year = time.getFullYear();
 
-            yAxisLabels.push(`${month + 1}/${date}/${year}`);
+            const hour = time.getUTCHours();
+            const minutes = time.getUTCMinutes();
+            if (this.props.timeline === "day") {
+                yAxisLabels.push(
+                    `${month + 1}/${date}/${year} ${hour}:${minutes}`
+                );
+            } else {
+                yAxisLabels.push(`${month + 1}/${date}/${year}`);
+            }
+
             xAxisLabels.push(currentItem.high);
         }
 
