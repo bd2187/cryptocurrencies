@@ -7,13 +7,17 @@ export const currencyHistoryEndpoint = (currency = "", timeline = "month") => {
 
     timeline = timeline.toLowerCase();
 
+    const hist = timeline === "day" ? "histohour" : "histoday";
+
+    if (timeline === "day") limit = 24;
+
     if (timeline === "week") limit = 7;
 
     if (timeline === "month") limit = 30;
 
     if (timeline === "year") limit = 365;
 
-    return `https://min-api.cryptocompare.com/data/histoday?fsym=${currency}&tsym=USD&limit=${limit}`;
+    return `https://min-api.cryptocompare.com/data/${hist}?fsym=${currency}&tsym=USD&limit=${limit}`;
 };
 
 export const currencyTradeInfoEndpoint = (currency = "") => {
