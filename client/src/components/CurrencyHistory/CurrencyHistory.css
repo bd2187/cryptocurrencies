@@ -49,6 +49,6 @@
 
 @media only screen and (min-width: 700px) {
     .currency-history-container {
-        width: 55%;
+        /* width: 55%; */
     }
 }
