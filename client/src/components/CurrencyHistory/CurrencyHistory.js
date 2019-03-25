@@ -81,15 +81,24 @@ class CurrencyHistory extends React.Component {
         for (let i = 0; i < historicalCurrencyData.length; i++) {
             const currentItem = historicalCurrencyData[i];
             const time = new Date(currentItem.time * 1000);
+
             const month = time.getMonth();
             const date = time.getDate();
             const year = time.getFullYear();
 
-            const hour = time.getUTCHours();
-            const minutes = time.getUTCMinutes();
+            const hour = time.getHours();
+            const minutes = time.getMinutes();
+
+            let adjustedMinutes;
+            if (minutes == 0) {
+                adjustedMinutes = "00";
+            } else {
+                adjustedMinutes = minutes;
+            }
+
             if (this.props.timeline === "day") {
                 yAxisLabels.push(
-                    `${month + 1}/${date}/${year} ${hour}:${minutes}`
+                    `${month + 1}/${date}/${year} ${hour}:${adjustedMinutes}`
                 );
             } else {
                 yAxisLabels.push(`${month + 1}/${date}/${year}`);
