@@ -89,12 +89,8 @@ class CurrencyHistory extends React.Component {
             const hour = time.getHours();
             const minutes = time.getMinutes();
 
-            let adjustedMinutes;
-            if (minutes == 0) {
-                adjustedMinutes = "00";
-            } else {
-                adjustedMinutes = minutes;
-            }
+            let adjustedMinutes =
+                parseInt(minutes) < 10 ? minutes + "0" : parseInt(minutes);
 
             if (this.props.timeline === "day") {
                 yAxisLabels.push(
