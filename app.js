@@ -1,1 +1,5 @@
-console.log("hello world");
+const express = require("express");
+const app = express();
+
+const port = process.env.PORT || 5000;
+app.listen(port, () => console.warn(`Now listening to port: ${port}`));
