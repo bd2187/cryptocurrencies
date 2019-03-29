@@ -12,3 +12,14 @@ router.get("/top-ten", (req, res) => {
         });
     });
 });
+
+router.get('/trade-info', (req, res) => {
+    fetch(
+        `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${currency}&tsyms=USD`
+    ).then(res => {
+        return res.json({
+            true,
+            res
+        })
+    })
+});
