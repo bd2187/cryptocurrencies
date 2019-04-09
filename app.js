@@ -17,6 +17,17 @@ http.createServer((req, res) => {
                 res.write(JSON.stringify(parsedRes));
             });
     }
+
+    if (req.url === "/all-coins") {
+        res.writeHead(200, { "Content-Type": "application/json" });
+        fetch("https://min-api.cryptocompare.com/data/all/coinlist")
+            .then(fetchedRes => {
+                return fetchedRes.json();
+            })
+            .then(parsedRes => {
+                res.write(JSON.stringify(parsedRes));
+            });
+    }
 }).listen(PORT, () => {
     console.warn(`Not listening to port ${PORT}`);
 });
