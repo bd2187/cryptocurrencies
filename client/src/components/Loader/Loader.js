@@ -9,6 +9,7 @@ class Loader extends Component {
     }
 
     toggleLoading(isLoading) {
+        // todo: adjust conditions
         if (isLoading && this.loaderRef.current) {
             this.loaderRef.current.classList.add(
                 styles["display-loading-spinner"]
