@@ -18,7 +18,7 @@ router.get('/trade-info', (req, res) => {
         `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${currency}&tsyms=USD`
     ).then(res => {
         return res.json({
-            true,
+            success: true,
             res
         })
     })
