@@ -1,6 +1,8 @@
 const http = require("http");
 const fetch = require("node-fetch");
 const key = require("./config/key");
+const url = require("url");
+const querystring = require("querystring");
 
 const PORT = process.env.PORT || 5000;
 
@@ -27,6 +29,13 @@ http.createServer((req, res) => {
             .then(parsedRes => {
                 res.write(JSON.stringify(parsedRes));
             });
+    }
+
+    if (req.url === "/currency-data?userID=123") {
+        const parsed = url.parse(req.url);
+
+        console.log(querystring.parse(parsed.query));
+        res.end("test");
     }
 }).listen(PORT, () => {
     console.warn(`Not listening to port ${PORT}`);
