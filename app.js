@@ -6,15 +6,17 @@ const querystring = require("querystring");
 
 const PORT = process.env.PORT || 5000;
 
+const parseJSON = function(res) {
+    return res.json();
+};
+
 http.createServer((req, res) => {
     if (req.url === "/top-ten") {
         res.writeHead(200, { "Content-Type": "application/json" });
         fetch(
             `https://min-api.cryptocompare.com/data/top/totalvolfull?limit=10&tsym=USD&api_key=${key()}`
         )
-            .then(fetchedRes => {
-                return fetchedRes.json();
-            })
+            .then(parseJSON(fetchedRes))
             .then(parsedRes => {
                 res.write(JSON.stringify(parsedRes));
             });
@@ -23,9 +25,7 @@ http.createServer((req, res) => {
     if (req.url === "/all-coins") {
         res.writeHead(200, { "Content-Type": "application/json" });
         fetch("https://min-api.cryptocompare.com/data/all/coinlist")
-            .then(fetchedRes => {
-                return fetchedRes.json();
-            })
+            .then(parseJSON(fetchedRes))
             .then(parsedRes => {
                 res.write(JSON.stringify(parsedRes));
             });
