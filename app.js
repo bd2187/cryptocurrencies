@@ -10,6 +10,10 @@ const parseJSON = function(res) {
     return res.json();
 };
 
+const configureRes = function(res, parsedRes) {
+    res.write(JSON.stringify(parsedRes));
+};
+
 http.createServer((req, res) => {
     if (req.url === "/top-ten") {
         res.writeHead(200, { "Content-Type": "application/json" });
@@ -18,7 +22,7 @@ http.createServer((req, res) => {
         )
             .then(parseJSON(fetchedRes))
             .then(parsedRes => {
-                res.write(JSON.stringify(parsedRes));
+                configureRes(res, parsedRes);
             });
     }
 
@@ -27,7 +31,7 @@ http.createServer((req, res) => {
         fetch("https://min-api.cryptocompare.com/data/all/coinlist")
             .then(parseJSON(fetchedRes))
             .then(parsedRes => {
-                res.write(JSON.stringify(parsedRes));
+                configureRes(res, parsedRes);
             });
     }
 
