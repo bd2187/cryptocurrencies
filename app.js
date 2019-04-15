@@ -1,46 +1,66 @@
-const http = require("http");
+const express = require("express");
+const app = express();
 const fetch = require("node-fetch");
 const key = require("./config/key");
-const url = require("url");
-const querystring = require("querystring");
 
 const PORT = process.env.PORT || 5000;
 
-const parseJSON = function(res) {
-    return res.json();
-};
+app.get("/top-ten", function(req, res) {
+    fetch(
+        `https://min-api.cryptocompare.com/data/top/totalvolfull?limit=10&tsym=USD&api_key=${key()}`
+    )
+        .then(res => res.json())
+        .then(parsedRes => {
+            res.status(200).json(parsedRes);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(404).json({ error: true });
+        });
+});
 
-const configureRes = function(res, parsedRes) {
-    res.write(JSON.stringify(parsedRes));
-};
+app.get("/all-coins", function(req, res) {
+    fetch(`https://min-api.cryptocompare.com/data/all/coinlist`)
+        .then(res => res.json())
+        .then(parsedRes => {
+            res.status(200).json(parsedRes);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(404).json({ err: true });
+        });
+});
 
-http.createServer((req, res) => {
-    if (req.url === "/top-ten") {
-        res.writeHead(200, { "Content-Type": "application/json" });
-        fetch(
-            `https://min-api.cryptocompare.com/data/top/totalvolfull?limit=10&tsym=USD&api_key=${key()}`
-        )
-            .then(parseJSON(fetchedRes))
-            .then(parsedRes => {
-                configureRes(res, parsedRes);
-            });
-    }
+app.get("/currency-history/:currency/:hist/:limit", function(req, res) {
+    const { currency, hist, limit } = req.params;
 
-    if (req.url === "/all-coins") {
-        res.writeHead(200, { "Content-Type": "application/json" });
-        fetch("https://min-api.cryptocompare.com/data/all/coinlist")
-            .then(parseJSON(fetchedRes))
-            .then(parsedRes => {
-                configureRes(res, parsedRes);
-            });
-    }
+    fetch(
+        `https://min-api.cryptocompare.com/data/${hist}?fsym=${currency}&tsym=USD&limit=${limit}`
+    )
+        .then(res => res.json())
+        .then(parsedRes => {
+            res.status(200).json(parsedRes);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(404).json({ err: true });
+        });
+});
 
-    if (req.url === "/currency-data?userID=123") {
-        const parsed = url.parse(req.url);
+app.get("/currency-info/:currency", function(req, res) {
+    const { currency } = req.params;
+    fetch(
+        `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${currency}&tsyms=USD`
+    )
+        .then(parsedRes => {
+            res.status(200).json(parsedRes);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(404).json({ err: true });
+        });
+});
 
-        console.log(querystring.parse(parsed.query));
-        res.end("test");
-    }
-}).listen(PORT, () => {
-    console.warn(`Not listening to port ${PORT}`);
+app.listen(PORT, () => {
+    console.log(`Now listening to port: ${PORT}`);
 });
