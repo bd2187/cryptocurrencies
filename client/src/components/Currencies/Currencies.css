@@ -1,11 +1,11 @@
-.currencies-list-container {
+.currenciesListContainer {
     display: flex;
     width: 100%;
     overflow-x: scroll;
     margin: 1em 0;
 }
 
-.currency-item-container {
+.currenciesListContainer__currencyItem {
     padding: 0.75em 0.75em 1em 1em;
     background: #395673;
 
@@ -93,13 +93,13 @@
         width: 75%;
     }
 
-    .currencies-list-container {
+    .currenciesListContainer {
         flex-direction: column;
         width: 25%;
         max-height: 600px;
     }
 
-    .currency-item-container {
+    .currenciesListContainer__currencyItem {
         margin: 0;
         margin-bottom: 0.75em;
     }
