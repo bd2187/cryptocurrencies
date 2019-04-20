@@ -1,60 +1,47 @@
 import React from "react";
-import Loading from "../Loading/Loading";
 import Loader from "../Loader/Loader";
 import styles from "./CurrencyHistory.css";
 
 import { Line } from "react-chartjs-2";
 
-/*
-const CurrencyHistory = ({
-    historicalCurrencyData,
-    updateTimeline,
-    fetchingCurrencyData,
-    fetchingCurrencyError
-}) => {
-    console.warn(d3);
-
-    return null;
-    // if (historicalCurrencyData.length > 0) {
-    //     return <div>{historicalCurrencyData[0].high}</div>;
-    // } else if (fetchingCurrencyData) {
-    //     return <p>loading</p>;
-    // } else if (fetchingCurrencyError) {
-    //     return <p>error</p>;
-    // } else {
-    //     return null;
-    // }
-};
-*/
-
 const TimelineButtons = ({ updateTimeline, coinName, currentTimeline }) => {
     const isActive = timeline => {
-        return currentTimeline === timeline ? styles.active : "";
+        return currentTimeline === timeline
+            ? styles["timeLineButtonsContainer__button--active"]
+            : "";
     };
 
     return (
-        <div className={styles["timeline-buttons-container"]}>
+        <div className={styles["timeLineButtonsContainer"]}>
             <button
-                className={isActive("day")}
+                className={`${isActive("day")} ${
+                    styles["timeLineButtonsContainer__button"]
+                }`}
                 onClick={updateTimeline.bind(null, coinName, "day")}
             >
                 24h
             </button>
 
             <button
-                className={isActive("week")}
+                className={`${isActive("week")} ${
+                    styles["timeLineButtonsContainer__button"]
+                }`}
                 onClick={updateTimeline.bind(null, coinName, "week")}
             >
                 7d
             </button>
             <button
-                className={isActive("month")}
+                className={`${isActive("month")} ${
+                    styles["timeLineButtonsContainer__button"]
+                }`}
                 onClick={updateTimeline.bind(null, coinName, "month")}
             >
                 1m
             </button>
             <button
-                className={isActive("year")}
+                className={`${isActive("year")} ${
+                    styles["timeLineButtonsContainer__button"]
+                }`}
                 onClick={updateTimeline.bind(null, coinName, "year")}
             >
                 1y
@@ -170,7 +157,7 @@ class CurrencyHistory extends React.Component {
         };
 
         return (
-            <div className={styles["currency-history-container"]}>
+            <div className={styles["currencyHistoryContainer"]}>
                 <TimelineButtons
                     updateTimeline={this.props.updateTimeline}
                     coinName={this.props.currencyInfo.CoinInfo.Name}
