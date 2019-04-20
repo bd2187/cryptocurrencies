@@ -17,51 +17,45 @@
     border-radius: 20px;
 }
 
-.currency-item-header {
+.currencyItem__header {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 }
 
-.currency-item-tag {
+.currencyItemTag {
     width: 10%;
 }
 
-.currency-item-tag img {
+.currencyItemTag__logo {
     width: 100%;
 }
 
-.currency-item-tag p {
+.currencyItemTag__shortName {
     text-align: center;
     font-size: 0.25em;
     margin: 0;
 }
 
-.currency-item-coin-price {
+.currencyItem__price {
     font-size: 2.5em;
     margin-bottom: 0.5em;
 }
 
-.currency-item-coin-info {
-    /* display: flex;
-    justify-content: space-between; */
+.currencyItem__info {
     font-size: 0.75em;
 }
 
-.above-zero {
+.percentChanged--aboveZero {
     color: green;
 }
 
-.below-zero {
+.percentChanged--belowZero {
     color: red;
 }
 
-.current {
+.currenciesListContainer__currencyItem--current {
     background: #6699cc;
-}
-
-.currently-viewed-currency-container {
-    /* background: orange; */
 }
 
 .currently-viewed-currency {
@@ -70,15 +64,6 @@
     align-items: center;
     width: 200px;
     margin: 0.75em auto;
-}
-
-.currently-viewed-currency img {
-    width: 50%;
-}
-
-.currently-viewed-currency p {
-    margin: 0.25em 0;
-    color: #fff;
 }
 
 @media only screen and (min-width: 850px) {
@@ -104,7 +89,7 @@
         margin-bottom: 0.75em;
     }
 
-    .currency-item-coin-price {
+    .currencyItem__price {
         font-size: 2em;
         margin-bottom: 0.25em;
     }
