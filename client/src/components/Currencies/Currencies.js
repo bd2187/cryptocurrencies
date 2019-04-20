@@ -30,38 +30,49 @@ class CurrenciesListItem extends Component {
 
         const determineIfNegOrPos = num => {
             if (Number(num) > 0) {
-                return "above-zero";
+                return "percentChanged--aboveZero";
             } else {
-                return "below-zero";
+                return "percentChanged--belowZero";
             }
         };
 
         const changePercentColor = determineIfNegOrPos(changePercent);
         const isCurrentlyViewedCurrency = () => {
             return currentlyViewedCurrencyName === coinShortName
-                ? styles.current
+                ? styles["currenciesListContainer__currencyItem--current"]
                 : "";
         };
 
         return (
             <li
                 onClick={this.onClick.bind(this, currency)}
-                className={`${
-                    styles["currency-item-container"]
-                } ${isCurrentlyViewedCurrency()}`}
+                className={`
+                    currencyItem
+                    ${styles["currenciesListContainer__currencyItem"]}
+                    ${isCurrentlyViewedCurrency()}                    
+                `}
                 ref={this.currencyContainerRef}
             >
-                <div className={styles["currency-item-header"]}>
-                    <div className={styles["currency-item-tag"]}>
-                        <img src={`http://cryptocompare.com/${imageUrl}`} />
-                        <p>{coinShortName}</p>
+                <div className={styles["currencyItem__header"]}>
+                    <div className={styles["currencyItemTag"]}>
+                        <img
+                            className={styles["currencyItemTag__logo"]}
+                            src={`http://cryptocompare.com/${imageUrl}`}
+                        />
+                        <p className={styles["currencyItemTag__shortName"]}>
+                            {coinShortName}
+                        </p>
                     </div>
                 </div>
-                <p className={styles["currency-item-coin-price"]}>{price}</p>
-                <div className={styles["currency-item-coin-info"]}>
+                <p className={styles["currencyItem__price"]}>{price}</p>
+                <div className={styles["currencyItem__info"]}>
                     <p>
                         Change (24):{" "}
-                        <span className={styles[changePercentColor]}>
+                        <span
+                            className={`
+                            percentChanged
+                            ${styles[changePercentColor]}`}
+                        >
                             {changePercent}%
                         </span>
                     </p>
@@ -86,7 +97,7 @@ const Currencies = ({
         return (
             <div className={mainStyles["wrap"]}>
                 <div className={styles["content-container"]}>
-                    <ul className={styles["currencies-list-container"]}>
+                    <ul className={styles["currenciesListContainer"]}>
                         {currencies.map(currency => {
                             return (
                                 <CurrenciesListItem
