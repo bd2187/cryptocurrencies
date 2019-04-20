@@ -1,34 +1,34 @@
-.currency-table {
+.currencyTable {
     padding: 0.5em;
     margin: 0 auto;
     color: #fff;
     font-size: 0.85em;
 }
 
-.currency-table-row td {
+.currencyTableRow__data {
     padding: 1em 0.5em;
 }
 
-.currency-table-row:nth-child(odd) {
+.currencyTableRow:nth-child(odd) {
     background-color: #252527;
 }
 
-.currency-table-row:nth-child(even) {
+.currencyTableRow:nth-child(even) {
     background-color: #1b1b1c;
 }
 
-.currency-table-row td:last-child {
+.currencyTableRow__value {
     text-align: right;
 }
 
-.currency-name {
+.currencyName {
     text-align: center;
     color: #fff;
     font-size: 1.25em;
     letter-spacing: 2px;
 }
 
-.error-message {
+.errorMessage {
     width: 90%;
     text-align: center;
     color: #fff;
@@ -36,7 +36,7 @@
 }
 
 @media only screen and (min-width: 700px) {
-    .currency-profile {
+    .currencyProfile {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -46,7 +46,7 @@
         padding: 2em;
     }
 
-    .current-history-container {
+    .currencyProfile__historyContainer {
         width: 70%;
     }
 }
