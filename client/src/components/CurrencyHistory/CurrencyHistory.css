@@ -1,4 +1,4 @@
-.timeline-buttons-container {
+.timeLineButtonsContainer {
     max-width: 300px;
     display: flex;
     flex-direction: row;
@@ -6,7 +6,7 @@
     margin: 0.75em auto;
 }
 
-.timeline-buttons-container button {
+.timeLineButtonsContainer__button {
     background: none;
     border: none;
     border-bottom: 2px solid #fff;
@@ -16,19 +16,19 @@
     padding-bottom: 7px;
 }
 
-.timeline-buttons-container button.active {
+.timeLineButtonsContainer__button--active {
     border-bottom: 2px solid rgb(105, 158, 212);
     color: rgb(105, 158, 212);
 }
 
-.currency-history-container {
+.currencyHistoryContainer {
     position: relative;
     padding: 0.5em;
     width: 100%;
     margin: 0 auto;
 }
 
-.loading-currency-data-container {
+/* .loading-currency-data-container {
     position: absolute;
     top: 0;
     left: 0;
@@ -45,10 +45,4 @@
 .loading-currency-data-container p {
     font-size: 2em;
     color: #2b7bcc;
-}
-
-@media only screen and (min-width: 700px) {
-    .currency-history-container {
-        /* width: 55%; */
-    }
-}
+} */
