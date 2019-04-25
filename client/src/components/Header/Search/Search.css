@@ -2,14 +2,14 @@
     position: relative;
 }
 
-.search-results {
+.searchResults {
     position: absolute;
     z-index: 10;
     background: #fff;
 }
 
-.search-results li a,
-.search-results li:last-child {
+.searchResults__currency__coinLink,
+.searchResults__currency:last-child {
     color: #395673;
     text-decoration: none;
     font-size: 0.75em;
@@ -20,12 +20,12 @@
     margin: 0.25em 0;
 }
 
-.selected .coin-link {
+.searchResults__currency--selected a {
     text-decoration: underline;
 }
 
-.search-results li:first-child,
-.search-results li:last-child {
+.searchResults__item:first-child,
+.searchResults__item:last-child {
     font-weight: bold;
     font-size: 0.9em;
     background: #395673;
@@ -33,12 +33,12 @@
     margin: 0;
 }
 
-.search-results li:last-child {
+.searchResults__item:last-child {
     cursor: pointer;
 }
 
-.search-results li a,
-.search-results li:first-child,
-.search-results li:last-child {
+.searchResults__currency__coinLink,
+.searchResults__item:first-child,
+.searchResults__item:last-child {
     padding: 1em 0.25em;
 }
