@@ -4,26 +4,41 @@ import { Link } from "react-router-dom";
 
 const SearchResults = ({ results, selected, updateSelected, resetList }) => {
     return (
-        <ul className={styles["search-results"]}>
-            <li>Coins</li>
+        <ul className={styles.searchResults}>
+            <li className={styles["searchResults__item"]}>Coins</li>
             {results.map(function(result) {
                 const link = `/search/${result.Symbol}`;
 
                 return (
                     <li
                         key={result.FullName}
-                        className={`${
-                            result.Symbol === selected ? styles.selected : ""
-                        }`}
+                        className={`
+                            ${styles["searchResults__currency"]}
+                            ${styles["searchResults__item"]}
+                            ${
+                                result.Symbol === selected
+                                    ? styles[
+                                          "searchResults__currency--selected"
+                                      ]
+                                    : ""
+                            }                            
+                        `}
                         onMouseEnter={() => updateSelected(result.Symbol)}
                     >
-                        <Link className={styles["coin-link"]} to={link}>
+                        <Link
+                            className={
+                                styles["searchResults__currency__coinLink"]
+                            }
+                            to={link}
+                        >
                             {result.FullName}
                         </Link>
                     </li>
                 );
             })}
-            <li onClick={resetList}>Hide Results</li>
+            <li className={styles["searchResults__item"]} onClick={resetList}>
+                Hide Results
+            </li>
         </ul>
     );
 };
