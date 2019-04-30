@@ -9,15 +9,14 @@ class Loader extends Component {
     }
 
     toggleLoading(isLoading) {
-        // todo: adjust conditions
         if (isLoading && this.loaderRef.current) {
             this.loaderRef.current.classList.add(
-                styles["display-loading-spinner"]
+                styles["ballLoaderContainer--display"]
             );
         } else {
             setTimeout(() => {
                 this.loaderRef.current.classList.remove(
-                    styles["display-loading-spinner"]
+                    styles["ballLoaderContainer--display"]
                 );
             }, 1000);
         }
@@ -29,21 +28,17 @@ class Loader extends Component {
         this.toggleLoading(isLoading);
 
         return (
-            <div
-                className={`${styles["loader"]} ${
-                    styles["display-loading-sip"]
-                }`}
-            >
+            <div className={`${styles["loader"]}`}>
                 {children}
                 <div
-                    className={`${styles["ball-loader-container"]} ${
-                        styles["display-loading-spinner"]
+                    className={`${styles["ballLoaderContainer"]} ${
+                        styles["ballLoaderContainer--display"]
                     }`}
                     ref={this.loaderRef}
                 >
-                    <div className={styles["ball-loader"]}>
-                        <div className={styles["ball-bounce1"]} />
-                        <div className={styles["ball-bounce2"]} />
+                    <div className={styles["ballLoader"]}>
+                        <div className={styles["ballLoader__ballBounce1"]} />
+                        <div className={styles["ballLoader__ballBounce2"]} />
                     </div>
                 </div>
             </div>
