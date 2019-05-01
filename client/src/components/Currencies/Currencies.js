@@ -92,7 +92,11 @@ const Currencies = ({
     updateCurrentlyViewedCurrency
 }) => {
     if (fetchingCurrencies) {
-        return <Loading text={"Fetching currencies"} ms={200} />;
+        return (
+            <div className={styles["loadingContainer"]}>
+                <Loading text={"Fetching currencies"} ms={200} />
+            </div>
+        );
     } else {
         return (
             <div className={mainStyles["wrap"]}>
