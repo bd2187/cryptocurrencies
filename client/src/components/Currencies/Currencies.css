@@ -66,6 +66,13 @@
     margin: 0.75em auto;
 }
 
+.loadingContainer p {
+    color: #fff;
+    text-align: center;
+    font-size: 1.5em;
+    margin: 2em 0;
+}
+
 @media only screen and (min-width: 850px) {
     .content-container {
         display: flex;
